@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Gy.mapper.ItMapper">
+	<select id="findAll" resultType="com.Gy.beans.It" parameterType="map">
+		SELECT t.*,t2.bq FROM it t,it2 t2 	
+		<if test="tbt!=null and tbt!= ''">
+			t.bt like concat ${'%',#{tbt},'%'}
+		</if>
+		WHERE t.`tid`=t2.`tid`
+	</select>
+	<insert id="addIt" parameterType="com.Gy.beans.It">
+		insert into it(type,bt,tid) values(#{type},#{bt},#{tid})
+	</insert> 
+	<select id="selIt2" resultType="com.Gy.beans.It2" >
+		select * from it2
+	</select>
+	<delete id="delIt" parameterType="Integer">
+		 delete from it where id = #{id}
+	</delete>
+	<select id="selIt" parameterType="Integer" resultType="com.Gy.beans.It">
+		select * from it where id=#{id}
+	</select>
+	<update id="update" parameterType="com.Gy.beans.It">
+		update it set type=#{type},bt=#{bt},tid=#{tid} where id=#{id}
+	</update>
+</mapper>
